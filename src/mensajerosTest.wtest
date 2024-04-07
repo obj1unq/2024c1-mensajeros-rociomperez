@@ -1,0 +1,35 @@
+import example.*
+
+test "El paquete de George que no está pago no puede ser llevado por Neo a la matrix." {
+	paqueteDeGeorge.envioPagado(false)
+	paqueteDeGeorge.destino(laMatrix)
+	paqueteDeGeorge.mensajero(neo)
+	assert.equals(false, paqueteDeGeorge.puedeSerEntregado())
+}
+
+test "El paquete de George que sí está pago puede ser llevado por Chuck a la matrix" {
+	paqueteDeGeorge.envioPagado(true)
+	paqueteDeGeorge.destino(laMatrix)
+	paqueteDeGeorge.mensajero(chuckNorris)
+	assert.equals(true, paqueteDeGeorge.puedeSerEntregado())
+}
+
+test "El paquete de George que sí está pago no puede ser llevado por Lincoln Hawk (80kg) 
+a Brooklyn si es que utiliza un camión con un acoplado ." {
+	paqueteDeGeorge.envioPagado(true)
+	paqueteDeGeorge.destino(brooklyn)
+	paqueteDeGeorge.mensajero(lincolnHawk)
+	lincolnHawk.pesoLincoln(80)
+	lincolnHawk.vehiculo(camion)
+	camion.acoplados(1)
+	assert.equals(false, paqueteDeGeorge.puedeSerEntregado())
+}
+
+test "La entrega anterior puede hacerse si Lincoln Hawk usa una bicicleta" {
+	paqueteDeGeorge.envioPagado(true)
+	paqueteDeGeorge.destino(brooklyn)
+	paqueteDeGeorge.mensajero(lincolnHawk)
+	lincolnHawk.pesoLincoln(80)
+	lincolnHawk.vehiculo(bicicleta)
+	assert.equals(true, paqueteDeGeorge.puedeSerEntregado())
+}
